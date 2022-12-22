@@ -6,9 +6,10 @@ dotenv.config()
 const user = process.env.PSQL_USER as string
 const password = process.env.PSQL_PASS as string
 
-export const sequelize: Sequelize = new Sequelize('sdc-test', user, password, {
+export const sequelize: Sequelize = new Sequelize('sdc', user, password, {
   host: 'localhost',
-  dialect: 'postgres'
+  dialect: 'postgres',
+  logging: false
 })
 
 

@@ -6,7 +6,12 @@ import {FeaturesModel} from './models/features'
 import { StylesModel } from './models/styles'
 import { PhotosModel } from './models/photos'
 import { SkusModel } from './models/skus'
-import { processProducts } from '../loaders/productLoader'
+import { productLoader } from '../loaders/productLoader'
+import { relatedLoader } from '../loaders/relatedLoader'
+import { featuresLoader } from '../loaders/featuresLoader'
+import { stylesLoader } from '../loaders/stylesLoader'
+import { skusLoader } from '../loaders/skusLoader'
+import { photosLoader } from '../loaders/photosLoader'
 
 export const Products = sequelize.define<ProductModel>('products', {
   id: {
@@ -62,7 +67,7 @@ export const Features = sequelize.define<FeaturesModel>('features', {
   value: {
     type: DataTypes.STRING
   },
-  product_id: {
+  products_id: {
     type: DataTypes.INTEGER.UNSIGNED,
     references: {
       model: Products,
@@ -136,10 +141,18 @@ export const Skus = sequelize.define<SkusModel>('skus', {
   }
 })
 
-sequelize.sync({force: true})
+ sequelize.sync({force: true})
+  .then(async () => {
+    await productLoader('product.csv')
+    await relatedLoader('related.csv')
+    await featuresLoader( 'features.csv')
+    await stylesLoader('styles.csv')
+    await skusLoader('skus.csv')
+    await photosLoader('photos.csv')
+
+  })
   .then(() => {
-    processProducts('product.csv')
-      .then(() => console.log('success!'))
+    console.log('Success! All data loaded')
   })
   .catch((err)=> {
     console.log(err)

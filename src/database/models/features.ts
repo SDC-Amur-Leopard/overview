@@ -4,6 +4,6 @@ import { Model,  CreationOptional, InferAttributes, InferCreationAttributes } fr
 export interface FeaturesModel extends Model<InferAttributes<FeaturesModel>, InferCreationAttributes<FeaturesModel>> {
   id: CreationOptional<number>;
   feature: string,
-  value: string,
-  product_id: number,
+  value: string | null,
+  products_id: number,
 }
