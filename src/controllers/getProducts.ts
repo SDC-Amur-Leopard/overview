@@ -6,5 +6,8 @@ export default function getProducts(page = 1, count = 5) {
   const start_id = (end_id - count) + 1
   const queryString = `SELECT id, name, slogan, description, category, default_price FROM products WHERE id >= ${start_id} AND id <= ${end_id}`
   return sequelize.query(queryString)
-    .then((results) => console.log(results[0]))
+    .then(results => {
+      console.log(results)
+      return results
+    })
 }
