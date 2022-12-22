@@ -1,15 +1,15 @@
-import { Sequelize } from 'sequelize'
-import dotenv from 'dotenv'
+
 import * as fs from 'fs'
 import readline from 'readline'
 import path from 'path'
+import { Products } from '../database/index'
 
-dotenv.config()
 
 
-async function processLineByLine(fileName: string) {
-  const filePath = path.join(__dirname, '/test_data/', fileName)
+export async function processProducts(fileName: string) {
+  const filePath = path.join(__dirname, '/csv_data/', fileName)
   const fileStream = fs.createReadStream(filePath)
+  const data = []
 
   const rl = readline.createInterface({
     input: fileStream,
@@ -23,41 +23,22 @@ async function processLineByLine(fileName: string) {
     if (line === 'id,name,slogan,description,category,default_price') {
       continue
     }
-    let [
-      product_id,
-      name,
-      slogan,
-      description,
-      category,
-      default_price
-    ] = line.split(/(?!\B"[^"]*),(?![^"]*"\B)/)
-    name = name.replaceAll(/^"?|"?$/g, '' )
-    slogan = slogan.replaceAll(/^"?|"?$/g, '' )
-    description = description.replaceAll(/^"?|"?$/g, '' )
-    category = category.replaceAll(/^"?|"?$/g, '' )
+    const columns = line.split(/(?!\B"[^"]*),(?![^"]*"\B)/)
+    const id = Number(columns[0])
+    const name = columns[1].replaceAll(/^"?|"?$/g, '' )
+    const slogan = columns[2].replaceAll(/^"?|"?$/g, '' )
+    const description = columns[3].replaceAll(/^"?|"?$/g, '' )
+    const category = columns[4].replaceAll(/^"?|"?$/g, '' )
+    const default_price = Number(columns[5])
+    data.push({id, name, slogan, description, category, default_price})
+  }
+  const chunkSize = 100000
+  for (let i = 0; i < data.length; i+= chunkSize) {
+    const chunk = data.slice(i, i + chunkSize)
+    await Products.bulkCreate(chunk).then((result) => console.log(result))
   }
 }
 
-processLineByLine('product1.csv')
-
-const user = process.env.PSQL_USER
-const password = process.env.PSQL_PASS
-
-if (user && password) {
-
-  const sequelize = new Sequelize(user, password, {
-    host: 'localhost',
-    dialect: 'postgres'
-  })
-  sequelize.authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.')
-
-  })
-  .catch((error)=> {
-    console.error('Unable to connect to the database:', error)
-  })
-}
 
 
 

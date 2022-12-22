@@ -6,7 +6,8 @@
     "compile": "tsc --noEmit",
     "lint": "eslint src",
     "start": "node dist/index.js",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "build-db": "node dist/database/index.js"
   },
   "description": "overview api",
   "main": "src/index.js",
