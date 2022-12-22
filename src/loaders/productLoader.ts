@@ -2,7 +2,7 @@
 import * as fs from 'fs'
 import readline from 'readline'
 import path from 'path'
-import { Products } from '../database'
+import { Products } from '../database/models/product'
 
 
 
@@ -31,7 +31,7 @@ export async function productLoader( fileName: string ) {
     const slogan = columns[2].replaceAll(/^"?|"?$/g, '' )
     const description = columns[3].replaceAll(/^"?|"?$/g, '' )
     const category = columns[4].replaceAll(/^"?|"?$/g, '' )
-    const default_price = Number(columns[5])
+    const default_price = columns[5]
     data.push({id, name, slogan, description, category, default_price})
     if (data.length === 100) {
       promiseArray.push(Products.bulkCreate(data))

@@ -2,7 +2,7 @@
 import * as fs from 'fs'
 import readline from 'readline'
 import path from 'path'
-import { Styles } from '../database'
+import { Styles } from '../database/models/styles'
 
 
 
@@ -28,8 +28,8 @@ export async function stylesLoader( fileName: string ) {
     const id = Number(columns[0])
     const products_id = Number(columns[1])
     const name = columns[2].replaceAll(/^"?|"?$/g, '' )
-    const sale_price = Number(columns[3]) || null
-    const original_price = Number(columns[4])
+    const sale_price = columns[3] === 'null' ? '0' : columns[3]
+    const original_price = columns[4]
     const default_style =  columns[5] === '1'
     data.push({id, products_id, name, sale_price, original_price, default_style})
     if (data.length === 100) {

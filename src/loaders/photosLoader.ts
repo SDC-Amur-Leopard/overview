@@ -2,7 +2,7 @@
 import * as fs from 'fs'
 import readline from 'readline'
 import path from 'path'
-import { Photos } from '../database'
+import { Photos } from '../database/models/photos'
 
 
 
