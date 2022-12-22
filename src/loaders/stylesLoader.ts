@@ -30,7 +30,7 @@ export async function stylesLoader( fileName: string ) {
     const name = columns[2].replaceAll(/^"?|"?$/g, '' )
     const sale_price = Number(columns[3]) || null
     const original_price = Number(columns[4])
-    const default_style =  columns[5] === 'true'
+    const default_style =  columns[5] === '1'
     data.push({id, products_id, name, sale_price, original_price, default_style})
     if (data.length === 100) {
       promiseArray.push(Styles.bulkCreate(data))

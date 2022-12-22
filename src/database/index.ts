@@ -141,7 +141,7 @@ export const Skus = sequelize.define<SkusModel>('skus', {
   }
 })
 
- sequelize.sync({force: true})
+ sequelize.sync()
   .then(async () => {
     await productLoader('product.csv')
     await relatedLoader('related.csv')
