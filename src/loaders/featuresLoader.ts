@@ -2,7 +2,7 @@
 import * as fs from 'fs'
 import readline from 'readline'
 import path from 'path'
-import { Features } from '../database/models/features'
+import { Features } from '../database/models/models'
 
 
 

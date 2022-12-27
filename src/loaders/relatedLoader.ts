@@ -2,7 +2,7 @@
 import * as fs from 'fs'
 import readline from 'readline'
 import path from 'path'
-import { RelatedItems } from '../database/models/related'
+import { RelatedItems } from '../database/models/models'
 
 
 

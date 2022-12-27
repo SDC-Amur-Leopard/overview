@@ -2,7 +2,7 @@
 import * as fs from 'fs'
 import readline from 'readline'
 import path from 'path'
-import { Skus } from '../database/models/skus'
+import { Skus } from '../database/models/models'
 
 
 

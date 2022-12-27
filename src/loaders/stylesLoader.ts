@@ -2,7 +2,7 @@
 import * as fs from 'fs'
 import readline from 'readline'
 import path from 'path'
-import { Styles } from '../database/models/styles'
+import { Styles } from '../database/models/models'
 
 
 
