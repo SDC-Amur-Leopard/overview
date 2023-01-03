@@ -68,7 +68,8 @@ export const Products = sequelize.define<ProductModel>('products', {
   default_price: {
     type: DataTypes.STRING
   },
-}
+},
+{timestamps: false}
 )
 
 export const Styles = sequelize.define<StylesModel>('styles', {
@@ -95,7 +96,9 @@ export const Styles = sequelize.define<StylesModel>('styles', {
       key: 'id'
     }
   }
-})
+},
+{timestamps: false}
+)
 Products.hasMany(Styles, {foreignKey: 'products_id'})
 Styles.belongsTo(Products, {foreignKey: 'products_id'})
 
@@ -117,7 +120,9 @@ export const Features = sequelize.define<FeaturesModel>('features', {
       key: 'id'
     }
   }
-})
+},
+{timestamps: false}
+)
 
 Products.hasMany(Features, {foreignKey: 'products_id'})
 Features.belongsTo(Products, {foreignKey: 'products_id'})
@@ -140,7 +145,9 @@ export const Photos = sequelize.define<PhotosModel>('photos', {
       key: 'id'
     }
   }
-})
+},
+{timestamps: false}
+)
 
 Styles.hasMany(Photos, {foreignKey: 'styles_id'})
 Photos.belongsTo(Styles, {foreignKey: 'styles_id'})
@@ -163,7 +170,9 @@ export const Skus = sequelize.define<SkusModel>('skus', {
       key: 'id'
     }
   }
-})
+},
+{timestamps: false}
+)
 
 Styles.hasMany(Skus, {foreignKey: 'styles_id'} )
 Skus.belongsTo(Styles, {foreignKey: 'styles_id'})
@@ -188,7 +197,9 @@ export const RelatedItems = sequelize.define<RelatedModel>('related_items', {
       key: 'id'
     }
   }
-})
+},
+{timestamps: false}
+)
 
 Products.hasMany(RelatedItems, {foreignKey: 'current_product_id'})
 Products.hasMany(RelatedItems, {foreignKey: 'related_product_id'})

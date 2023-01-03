@@ -20,9 +20,6 @@ import { photosLoader } from '../loaders/photosLoader'
     sequelize.query('create index photos_styles_id on photos(styles_id);')
     sequelize.query('create index skus_styles_id on skus(styles_id);')
     sequelize.query('create index current_product_id on related_items(current_product_id);')
-
-
-
   })
   .then(() => {
     console.log('Success! All data loaded')
