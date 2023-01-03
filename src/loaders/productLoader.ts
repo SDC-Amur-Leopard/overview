@@ -34,7 +34,6 @@ export async function productLoader( fileName: string ) {
     const default_price = columns[5]
     data.push({id, name, slogan, description, category, default_price})
     if (data.length === 100) {
-      console.log('100 lines')
       promiseArray.push(Products.bulkCreate(data))
       data = []
       // Call bulkCreate & store promise into array

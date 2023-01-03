@@ -31,7 +31,6 @@ export async function photosLoader( fileName: string ) {
     const thumbnail_url = columns[3].replaceAll(/^"?|"?$/g, '' )
     data.push({id, styles_id, url, thumbnail_url})
     if (data.length === 100) {
-      console.log('100 lines')
       promiseArray.push(Photos.bulkCreate(data))
       data = []
       // Call bulkCreate & store promise into array
