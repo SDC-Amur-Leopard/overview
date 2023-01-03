@@ -7,14 +7,14 @@ import { skusLoader } from '../loaders/skusLoader'
 import { photosLoader } from '../loaders/photosLoader'
 
 
- sequelize.sync({alter: true})
+ sequelize.sync({force: true})
   .then(async () => {
-    // await productLoader('product.csv')
-    // await relatedLoader('related.csv')
-    // await featuresLoader( 'features.csv')
-    // await stylesLoader('styles.csv')
-    // await skusLoader('skus.csv')
-    // await photosLoader('photos.csv')
+    await productLoader('product.csv')
+    await relatedLoader('related.csv')
+    await featuresLoader( 'features.csv')
+    await stylesLoader('styles.csv')
+    await skusLoader('skus.csv')
+    await photosLoader('photos.csv')
     sequelize.query('create index features_products_id on features(products_id);')
     sequelize.query('create index styles_products_id on styles(products_id);')
     sequelize.query('create index photos_styles_id on photos(styles_id);')
