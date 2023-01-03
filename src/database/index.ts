@@ -9,9 +9,9 @@ import { photosLoader } from '../loaders/photosLoader'
 
  sequelize.sync({force: true})
   .then(async () => {
-    await productLoader('product.csv')
-    await relatedLoader('related.csv')
-    await featuresLoader( 'features.csv')
+    // await productLoader('product.csv')
+    // await relatedLoader('related.csv')
+    // await featuresLoader( 'features.csv')
     await stylesLoader('styles.csv')
     await skusLoader('skus.csv')
     await photosLoader('photos.csv')
