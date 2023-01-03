@@ -36,7 +36,7 @@ export async function relatedLoader( fileName: string ) {
       data = []
       // Call bulkCreate & store promise into array
       // Once array == 10000 in size, await Promise.all(array)
-      if (promiseArray.length === 5000) {
+      if (promiseArray.length === 1000) {
         await Promise.all(promiseArray)
           .then(() => console.log('done'))
         promiseArray = []
