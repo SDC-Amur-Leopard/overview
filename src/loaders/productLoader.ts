@@ -17,11 +17,8 @@ export async function productLoader( fileName: string ) {
     input: fileStream,
     crlfDelay: Infinity
   })
-  // Note: we use the crlfDelay option to recognize all instances of CR LF
-  // ('\r\n') in input.txt as a single line break.
 
   for await (const line of rl) {
-    // Each line in input.txt will be successively available here as `line`.
     if (line === 'id,name,slogan,description,category,default_price') {
       continue
     }
@@ -36,8 +33,6 @@ export async function productLoader( fileName: string ) {
     if (data.length === 100) {
       promiseArray.push(Products.bulkCreate(data))
       data = []
-      // Call bulkCreate & store promise into array
-      // Once array == 10000 in size, await Promise.all(array)
       if (promiseArray.length === 500) {
         await Promise.all(promiseArray)
           .then(() => console.log('done'))
@@ -48,13 +43,4 @@ export async function productLoader( fileName: string ) {
   await Products.bulkCreate(data)
     .then(() => console.log('done with rest'))
 }
-  // const chunkSize = 100000
-  // for (let i = 0; i < data.length; i+= chunkSize) {
-  //   const chunk = data.slice(i, i + chunkSize)
-  //   Products.bulkCreate(chunk, {hooks: false })
-  // }
-
-
-
-
 
